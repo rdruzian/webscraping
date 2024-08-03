@@ -11,7 +11,8 @@ import (
 )
 
 const enem = "https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos"
-const fcmscsp = "https://vestibular.brasilescola.uol.com.br/downloads/faculdade-ciencias-medicas-santa-casa-sao-paulo.htm"
+
+// const fcmscsp = "https://vestibular.brasilescola.uol.com.br/downloads/faculdade-ciencias-medicas-santa-casa-sao-paulo.htm"
 const downloadTest = "https://download.inep.gov.br/enem/provas_e_gabaritos"
 
 func main() {
@@ -26,11 +27,12 @@ func main() {
 	browser, err := pw.Chromium.Launch(playwright.BrowserTypeLaunchOptions{
 		Headless: playwright.Bool(true),
 	})
+	assertErrorToNilf("could not launch Chromium: %w", err)
 
 	enemPath := "C:\\Users\\renat\\Downloads\\enem"
 	err = os.Mkdir(enemPath, 0777)
+	assertErrorToNilf("could not create directory: %w", err)
 
-	assertErrorToNilf("could not launch Chromium: %w", err)
 	context, err := browser.NewContext()
 	assertErrorToNilf("could not create context: %w", err)
 	page, err := context.NewPage()
